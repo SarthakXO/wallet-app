@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const zod = require("zod");
-const User = require("../db");
+const { User } = require("../db");
+const { Account } = require("../db");
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = require("../config");
 const authMiddleware = require("../middleware");
@@ -82,6 +83,11 @@ router.post("/signup", async (req, res) => {
   //creating token
   const userId = createdUser._id;
   const token = jwt.sign({ userId }, JWT_SECRET);
+
+  await Account.create({
+    userId,
+    balance: Math.floor(Math.random() * 1000),
+  });
 
   res.status(200).json({
     message: "User created successfully",
