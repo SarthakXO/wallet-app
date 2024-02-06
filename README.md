@@ -2,18 +2,18 @@
 
 A Simple Full-Stack Wallet application that allows user to send/receive money to other users.
 
-## Frontend
+### Frontend
 
 - JavaScript/ReactJS (Vite)
 - Tailwind CSS
 
-## Backend
+### Backend
 
 - Nodejs/Express
 - Mongoose
 - Zod
 - JWT
 
-## Database
+### Database
 
 -MongoDB
