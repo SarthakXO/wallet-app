@@ -15,6 +15,13 @@ const userSignupSchema = zod.object({
   lastName: zod.string().min(3).max(20),
 });
 
+//signin Input validation
+
+const userSigninSchema = zod.object({
+  username: zod.string().min(8).max(15),
+  password: zod.string().min(8).max(15),
+});
+
 //ROUTES
 
 //signup route
@@ -39,7 +46,7 @@ router.post("/signup", async (req, res) => {
     });
   }
 
-  //creating user
+  //creating user in database
   const createdUser = await User.create({
     username: req.body.username,
     password: req.body.password,
@@ -48,12 +55,34 @@ router.post("/signup", async (req, res) => {
   });
 
   //creating token
-  const token = jwt.sign({ createdUser }, JWT_SECRET);
+  const userId = createdUser._id;
+  const token = jwt.sign({ userId }, JWT_SECRET);
 
   res.status(200).json({
     message: "User created successfully",
     token: token,
   });
+});
+
+//signin route
+router.post("/signin", async (req, res) => {
+  //validating inputs
+  const success = userSigninSchema.safeParse(req.body);
+  if (!success) {
+    return res.status(411).json({
+      message: "Error while logging in",
+    });
+  }
+
+  //checking if user is present in db
+  const checkUser = await User.findOne({
+    username: req.body.username,
+    password: req.body.password,
+  });
+  if (checkUser) {
+    const token = jwt.sign({ userId: checkUser._id }, JWT_SECRET);
+    return res.status(200).json({ token: token });
+  }
 });
 
 module.exports = router;
