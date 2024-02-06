@@ -12,7 +12,7 @@
 
 - Nodejs/Express (Server)
 
-- Mongoose (ORM)
+- Mongoose (ODM)
 
 - Zod (Input Validation)
 
