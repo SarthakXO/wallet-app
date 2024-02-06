@@ -4,9 +4,9 @@
 
 ### Frontend
 
-- JavaScript/ReactJS (Vite) (Client Side Logic and UI)
+- JavaScript/ReactJS (Vite) (Frontend framework)
 
-- Tailwind CSS (UI Styling)
+- Tailwind CSS (Styling framework)
 
 ### Backend
 
